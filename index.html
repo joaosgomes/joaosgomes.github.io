@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTTP joaosgomes.github.io</title>
+</head>
+<body>
+  <main>
+    <p id="status" hidden></p>
+    <a href="/api/anything"><code>GET /api/anything</code></a>
+  </main>
+
+  <script type="module">
+    const status = document.querySelector("#status");
+
+    try {
+      status.hidden = false;
+      status.textContent = "Starting...";
+
+      await navigator.serviceWorker.register("/worker.js");
+      await navigator.serviceWorker.ready;
+
+      status.hidden = true;
+    } catch {
+      status.textContent = "Service Unavailable";
+    }
+  </script>
+</body>
+</html>
