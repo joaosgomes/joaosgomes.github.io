@@ -9,6 +9,11 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
+  if (url.pathname === "/favicon.ico") {
+    event.respondWith(new Response(null, { status: 204 }));
+    return;
+  }
+
   if (url.pathname === "/api/anything") {
     event.respondWith(
       Response.json({
